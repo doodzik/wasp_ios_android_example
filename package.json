@@ -1,0 +1,16 @@
+{
+  "name": "AwsomeProject",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start"
+  },
+  "dependencies": {
+    "react-native": "^0.15.0",
+    "react-native-button": "^1.3.1",
+    "react-native-network-info": "^0.2.0",
+    "semantic-internet-protocol": "0.0.4",
+    "socket.io": "^1.3.7",
+    "socket.io-client": "^1.3.7"
+  }
+}
