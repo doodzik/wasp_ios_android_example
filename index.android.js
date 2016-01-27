@@ -2,7 +2,6 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
-
 'use strict';
 
 function toByteArray(obj) {
@@ -33,7 +32,7 @@ import { header, interest, knowledge } from './src/semantic-internet-protocol'
 
 var AwsomeProject = React.createClass({
   getInitialState: function() {
-    return { data: '', ip: '', remote: '192.168.0.2', socket: false};
+    return { data: '', ip: '', remote: '192.168.0.2', socket: false, content: 'android' };
   },
 
   componentDidMount: function() {
@@ -44,15 +43,11 @@ var AwsomeProject = React.createClass({
     var socket = io('http://'+ this.state.remote +':5442');
     this.setState({data: ''})
 
-    const bodyStr   = knowledge.deserialize({ vocabulary: '', infoContent: 'android' })
-    const headerStr = header.deserialize({version: 1.0, contentLength: bodyStr.length, command: 'expose'})
+    const bodyStr   = knowledge.serialize({ vocabulary: '', infoContent: this.state.content })
+    const headerStr = header.serialize({version: 1.0, contentLength: bodyStr.length, command: 'expose'})
 
     socket.emit('expose', headerStr + bodyStr);
-    socket.on('interest', data => {
-      this.setState({data})
-      var [head, body] = header.deserialize(data)
-      var bla          = interest.deserialize(body)
-    });
+    socket.on('interest', data => this.setState({data}));
   },
 
   render: function() {
@@ -64,9 +59,16 @@ var AwsomeProject = React.createClass({
         <TextInput
           style={{height: 40}}
           placeholder='remote ip adress'
-          autoFocus={true}
+          autoFocus={false}
           onChangeText={(remote) => this.setState({remote})}
           value={this.state.remote}
+        />
+        <TextInput
+          style={{height: 40}}
+          placeholder='content'
+          autoFocus={true}
+          onChangeText={(content) => this.setState({content})}
+          value={this.state.content}
         />
         <Button
           style={styles.button} onPress={this.buttonClicked.bind(this)}>

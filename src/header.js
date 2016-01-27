@@ -16,7 +16,7 @@ function _regex() {
   return new RegExp(firstLine + secondLine + end, 'g')
 }
 
-function serialize(buffer) {
+function deserialize(buffer) {
   const match = _regex().exec(buffer)
   if(!match)
     return [ false, buffer ]
@@ -28,7 +28,7 @@ function serialize(buffer) {
   return [ header, bufferNew ]
 }
 
-function deserialize(header) {
+function serialize(header) {
   let version = header.version
   if (header.version % 1 === 0)
     version = header.version + '.0'

@@ -8,13 +8,13 @@ var knowledge = sip.knowledge
 io.on('connection', function (socket) {
 
   socket.on('expose', function (data) {
-    var [head, body] = header.serialize(data)
-    var bla          = knowledge.serialize(body)
+    var [head, body] = header.deserialize(data)
+    var bla          = knowledge.deserialize(body)
     console.log(head, bla)
 
     setTimeout(() => {
-      var bodyStr   = interest.deserialize({ vocabulary: '', infoContent: '' })
-      var headerStr = header.deserialize({version: 1.0, contentLength: bodyStr.length, command: 'insert'})
+      var bodyStr   = interest.serialize({ vocabulary: '', infoContent: bla.infoContent.toLowerCase()})
+      var headerStr = header.serialize({version: 1.0, contentLength: bodyStr.length, command: 'insert'})
       io.emit('interest', headerStr + bodyStr);
     }, 1000)
   });

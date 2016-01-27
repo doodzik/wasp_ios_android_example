@@ -25,13 +25,13 @@ function validate(obj) {
   }
 }
 
-function serialize(buffer) {
+function deserialize(buffer) {
   var obj = JSON.parse(buffer)
   validate(obj)
   return obj
 }
 
-function deserialize(obj) {
+function serialize(obj) {
   validate(obj)
   var buffer = JSON.stringify(obj)
   return buffer
