@@ -4,15 +4,6 @@
  */
 'use strict';
 
-function toByteArray(obj) {
-  var uint = new Uint8Array(obj.length);
-  for (var i = 0, l = obj.length; i < l; i++){
-    uint[i] = obj.charCodeAt(i);
-  }
-
-  return new Uint8Array(uint);
-}
-
 window.navigator.userAgent = "react-native";
 var io = require('socket.io-client/socket.io');
 
@@ -28,7 +19,7 @@ var {
   View,
 } = React;
 
-import { header, interest, knowledge } from './src/semantic-internet-protocol'
+import { header, interest, knowledge } from 'semantic-internet-protocol'
 
 var AwsomeProject = React.createClass({
   getInitialState: function() {
